@@ -1,15 +1,16 @@
 import { RoomType } from "../interface/rome-type";
 
-abstract class RoomBase {
-  protected Room: RoomType[] = [];
+export abstract class AbstractRoomManger {
+  abstract addRoom(room: RoomType): void;
 
-  abstract isAvailable(id: number): boolean;
-  abstract getRooms(): { allRooms: RoomType[]; size: number };
+  abstract removeRoomById(id: number): boolean;
+  abstract findRoomById(id: number): RoomType | undefined;
+  abstract getAllRooms(): RoomType[];
+  abstract getRoomCount(): number;
 }
 
-abstract class RoomAction {
-  abstract changeStatus(): string;
-  abstract changePrice(): string;
+export enum RoomStatus {
+  Available = "available",
+  Occupied = "occupied",
+  Maintenance = "maintenance",
 }
-
-export { RoomBase };

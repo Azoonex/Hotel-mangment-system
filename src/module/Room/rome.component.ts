@@ -1,43 +1,85 @@
-import { RoomBase } from "../../base/room.base";
+import { AbstractRoomManger, RoomBase, RoomStatus } from "../../base/room.base";
 import { RoomType } from "../../interface/rome-type";
 
-class Room extends RoomBase {
-  AllRooms: RoomType[] = [];
+export class Room {
+  public readonly id: number;
+  private price: number;
+  private status: RoomStatus;
 
-  isAvailable(id: number): boolean {
-    const findById = this.AllRooms.find((v) => v.id === id);
-
-    if (findById) {
-      return true;
-    }
-    return false;
+  constructor(
+    id: number,
+    price: number,
+    status: RoomStatus = RoomStatus.Available,
+  ) {
+    this.id = id;
+    this.price = price;
+    this.status = status;
   }
 
-  getRooms(): { allRooms: RoomType[]; size: number } {
-    return {
-      allRooms: this.AllRooms,
-      size: this.AllRooms.length,
-    };
+  isAvailable(): boolean {
+    return this.status === RoomStatus.Available;
+  }
+
+  changePrice(newPrice: number): void {
+    if (newPrice) {
+      throw new Error("Price must be positive");
+    }
+
+    this.price = newPrice;
+  }
+
+  changeStatus(newStatus: RoomStatus): void {
+    console.log(
+      `Status for room ${this.id} changed from ${this.status} to ${newStatus}.`,
+    );
+
+    this.status = newStatus;
+  }
+
+  get getPrice(): number {
+    return this.price;
+  }
+
+  get getStatus(): RoomStatus {
+    return this.status;
   }
 }
 
-export class RoomServices extends Room {
-  constructor() {
-    super();
-  }
+export class RoomManger extends AbstractRoomManger {
+  private rooms: RoomType[] = [];
 
-  addRoom(room: RoomType) {
-    if (!room) {
-      throw new Error("Please fill the room value");
+  addRoom(room: RoomType): void {
+    // Prevent adding rooms with duplicate IDs
+    if (this.findRoomById(room.id)) {
+      console.warn(`Room with ID ${room.id} already exists.`);
+      return;
     }
-    this.AllRooms.push(room);
+    this.rooms.push(room);
+    console.log(`Room ${room.id} added successfully.`);
   }
 
-  removeRoomById(id: number) {
-    const updateRooms = this.AllRooms.filter((value) => value.id !== id);
-    this.AllRooms = updateRooms;
+  removeRoomById(id: number): boolean {
+    const initialLength = this.rooms.length;
+
+    this.rooms = this.rooms.filter((room) => room.id !== id);
+    if (this.rooms.length < initialLength) {
+      console.log(`Room ${id} removed successfully.`);
+      return true;
+    }
+
+    console.warn(`Room with ID ${id} not found.`);
+    return false;
   }
 
-  changePrice(): void {}
-  changeStatus(): void {}
+  findRoomById(id: number): RoomType | undefined {
+    return this.rooms.find((room) => room.id === id);
+  }
+
+  getAllRooms(): RoomType[] {
+    return [...this.rooms];
+  }
+
+  getRoomCount(): number {
+    return this.rooms.length;
+  }
 }
