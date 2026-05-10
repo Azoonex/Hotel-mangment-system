@@ -32,12 +32,15 @@ console.log("All rooms after removal:", hotelManager.getAllRooms());
 
 
 
-class Application {
-  constructor(public link:string) {
-    this.link = link
+class User {
+  static count =0;
+  
+  constructor(public name:string){
+    User.count++
   }
-}
+};
 
-const spp = new Application("34")
+const user1 = new User("person1")
+const user2 = new User("person2")
 
-console.log(spp)
+console.log(User.count)
