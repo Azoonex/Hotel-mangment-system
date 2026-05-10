@@ -1,4 +1,4 @@
-import { AbstractRoomManger, RoomBase, RoomStatus } from "../../base/room.base";
+import { AbstractRoomManger, RoomStatus } from "../../base/room.base";
 import { RoomType } from "../../interface/rome-type";
 
 export class Room {
@@ -21,7 +21,7 @@ export class Room {
   }
 
   changePrice(newPrice: number): void {
-    if (newPrice) {
+    if (newPrice <= 0) {
       throw new Error("Price must be positive");
     }
 
@@ -46,9 +46,9 @@ export class Room {
 }
 
 export class RoomManger extends AbstractRoomManger {
-  private rooms: RoomType[] = [];
+  private rooms: Room[] = [];
 
-  addRoom(room: RoomType): void {
+  addRoom(room: Room): void {
     // Prevent adding rooms with duplicate IDs
     if (this.findRoomById(room.id)) {
       console.warn(`Room with ID ${room.id} already exists.`);
@@ -71,11 +71,11 @@ export class RoomManger extends AbstractRoomManger {
     return false;
   }
 
-  findRoomById(id: number): RoomType | undefined {
+  findRoomById(id: number): Room | undefined {
     return this.rooms.find((room) => room.id === id);
   }
 
-  getAllRooms(): RoomType[] {
+  getAllRooms(): Room[] {
     return [...this.rooms];
   }
 

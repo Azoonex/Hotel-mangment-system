@@ -1,10 +1,10 @@
 // --- Main Application Logic ---
 
 import { RoomStatus } from "./base/room.base";
-import { Room } from "./module/Room/rome.component";
+import { Room, RoomManger } from "./module/Room/rome.component";
 
 // 1. Create a manager
-const hotelManager = new RoomManager();
+const hotelManager = new RoomManger();
 
 // 2. Create individual room objects
 const room101 = new Room(101, 150);
@@ -24,10 +24,20 @@ room101.changePrice(175); // Changes price only for room 101
 
 // 5. Use the manager to find and manipulate rooms
 const foundRoom = hotelManager.findRoomById(102);
-if (foundRoom) {
-  console.log(`Found room ${foundRoom.id} with status: ${foundRoom.getStatus()}`);
-  foundRoom.changeStatus(RoomStatus.Available); // Change status of the found room
-}
+
 
 hotelManager.removeRoomById(103);
 console.log("All rooms after removal:", hotelManager.getAllRooms());
+
+
+
+
+class Application {
+  constructor(public link:string) {
+    this.link = link
+  }
+}
+
+const spp = new Application("34")
+
+console.log(spp)
