@@ -1,9 +1,7 @@
-interface RoomType {
-  id: number;
-  number: number;
-  price: number;
-  type: "SINGLE" | "DOUBLE" | "SUITE";
-  status: "AVAILABLE" | "BOOKED";
+enum capacitySize {
+  SINGLE = "SINGLE",
+  DOUBLE = "DOUBLE",
+  SUITE = "SUITE",
 }
 
-export type { RoomType };
+export { capacitySize };

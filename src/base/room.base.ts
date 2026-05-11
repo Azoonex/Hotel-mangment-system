@@ -1,4 +1,3 @@
-import { RoomType } from "../interface/rome-type";
 import { Room } from "../module/Room/rome.component";
 
 export abstract class AbstractRoomManger {

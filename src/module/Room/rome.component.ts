@@ -1,19 +1,23 @@
 import { AbstractRoomManger, RoomStatus } from "../../base/room.base";
-import { RoomType } from "../../interface/rome-type";
+import { capacitySize } from "../../interface/rome-type";
 
 export class Room {
   public readonly id: number;
   private price: number;
   private status: RoomStatus;
+  private capacity: capacitySize;
+
 
   constructor(
     id: number,
     price: number,
     status: RoomStatus = RoomStatus.Available,
+    capacity: capacitySize,
   ) {
     this.id = id;
     this.price = price;
     this.status = status;
+    this.capacity = capacity;
   }
 
   isAvailable(): boolean {
