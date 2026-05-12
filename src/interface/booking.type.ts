@@ -6,12 +6,12 @@ enum BookingStatus {
     Cancelled = "CANCELLED"
 }
 
-interface IBooking {
+interface IBookingType {
     id: string;
     guestId: string;
     roomId: string;
-    checkInDate: Date;
-    checkOutDate: Date;
+    checkIn: Date;
+    checkOut: Date;
     totalAmount: number;
     status: BookingStatus;
     createdAt: Date;
@@ -19,5 +19,5 @@ interface IBooking {
 
 export {
   BookingStatus,
-  IBooking
+  IBookingType
 }

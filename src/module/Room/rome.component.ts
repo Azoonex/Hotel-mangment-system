@@ -2,14 +2,14 @@ import { AbstractRoomManger, RoomStatus } from "../../base/room.base";
 import { capacitySize } from "../../interface/rome-type";
 
 export class Room {
-  public readonly id: number;
+  public readonly id: string;
   private price: number;
   private status: RoomStatus;
   private capacity: capacitySize;
 
 
   constructor(
-    id: number,
+    id: string,
     price: number,
     status: RoomStatus = RoomStatus.Available,
     capacity: capacitySize,
@@ -62,7 +62,7 @@ export class RoomManger extends AbstractRoomManger {
     console.log(`Room ${room.id} added successfully.`);
   }
 
-  removeRoomById(id: number): boolean {
+  removeRoomById(id: string): boolean {
     const initialLength = this.rooms.length;
 
     this.rooms = this.rooms.filter((room) => room.id !== id);
@@ -75,7 +75,7 @@ export class RoomManger extends AbstractRoomManger {
     return false;
   }
 
-  findRoomById(id: number): Room | undefined {
+  findRoomById(id: string): Room | undefined {
     return this.rooms.find((room) => room.id === id);
   }
 

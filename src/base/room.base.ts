@@ -3,8 +3,8 @@ import { Room } from "../module/Room/rome.component";
 export abstract class AbstractRoomManger {
   abstract addRoom(room: Room): void;
 
-  abstract removeRoomById(id: number): boolean;
-  abstract findRoomById(id: number): Room | undefined;
+  abstract removeRoomById(id: string): boolean;
+  abstract findRoomById(id: string): Room | undefined;
   abstract getAllRooms(): Room[];
   abstract getRoomCount(): number;
 }
